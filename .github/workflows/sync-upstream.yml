@@ -1,0 +1,44 @@
+name: Sync upstream fireworks-tech-graph
+
+# Keeps the vendored upstream skill (skills/fireworks-tech-graph/) in sync with
+# yizhiyanhua-ai/fireworks-tech-graph@main. Runs weekly and on manual dispatch.
+# When the sync produces changes, it opens a PR (no auto-merge — human reviews).
+
+on:
+  schedule:
+    # Every Monday 03:17 UTC (offset avoids the top-of-hour rush).
+    - cron: '17 3 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sync upstream into skills/
+        run: ./sync_upstream.sh
+
+      - name: Open PR if changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: sync upstream fireworks-tech-graph"
+          title: "chore: sync upstream fireworks-tech-graph"
+          body: |
+            Automated sync of the vendored upstream skill
+            `yizhiyanhua-ai/fireworks-tech-graph` into `skills/`.
+
+            - Upstream commit: see `UPSTREAM_COMMIT`
+            - Plugin version bumped (patch) by `sync_upstream.sh`
+
+            Review the diff and merge to ship the update. The npm publish
+            workflow triggers on the resulting release/tag.
+          branch: sync/upstream
+          delete-branch: true
+          labels: upstream-sync

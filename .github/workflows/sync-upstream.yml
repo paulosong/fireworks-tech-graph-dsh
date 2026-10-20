@@ -27,7 +27,7 @@ jobs:
       - name: Open PR if changed
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SYNC_FIREWORKS_TECH_GRAPH }}
           commit-message: "chore: sync upstream fireworks-tech-graph"
           title: "chore: sync upstream fireworks-tech-graph"
           body: |

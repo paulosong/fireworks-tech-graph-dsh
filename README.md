@@ -72,35 +72,6 @@ The agent resolves `skills/fireworks-tech-graph/` as `SKILL_ROOT` and runs
 
 ---
 
-## Keeping it updated
-
-Upstream `yizhiyanhua-ai/fireworks-tech-graph` is MIT and `allow_forking`, so
-we re-vendor it here and track it.
-
-### Local / manual
-
-```bash
-./sync_upstream.sh        # refreshes skills/, bumps patch version, writes UPSTREAM_COMMIT
-git diff                  # review
-git add -A && git commit -m "chore: sync upstream fireworks-tech-graph"
-```
-
-### Automatic (GitHub Action)
-
-A scheduled workflow (`.github/workflows/sync-upstream.yml`) runs **every
-Monday** (and on manual dispatch). When upstream `main` has changed, it opens
-a PR titled `chore: sync upstream fireworks-tech-graph`. You review and merge —
-no silent auto-merge.
-
-### Publishing to npm
-
-After merging a sync (or any) change, cut a **GitHub Release** with the new
-version tag. The `publish-npm.yml` workflow then publishes to npm. This
-requires a repo secret **`NPM_TOKEN`** (an Automation-type token from
-npmjs.com).
-
----
-
 ## Repository layout
 
 ```

@@ -1,0 +1,26 @@
+fireworks-tech-graph-dsh
+========================
+
+This project adapts the upstream Agent Skill **fireworks-tech-graph**
+(https://github.com/yizhiyanhua-ai/fireworks-tech-graph), which is distributed
+under the MIT License, Copyright (c) 2025 fireworks-tech-graph contributors.
+
+The upstream skill source is re-vendored (copied) under `skills/fireworks-tech-graph/`
+so this plugin is self-contained and installable without network access to the
+upstream at install time. The upstream MIT LICENSE is preserved verbatim in the
+root `LICENSE` file and inside `skills/fireworks-tech-graph/LICENSE`.
+
+The DeepSeek Harness adapter code in this repository — namely:
+  - lib/index.js
+  - dsh.plugin.json
+  - cordis.patch.yml
+  - this package's root package.json and README.md
+is original work released under the MIT License as well.
+
+Upstream tracking: a scheduled GitHub Action (see .github/workflows/sync-upstream.yml)
+and the `sync_upstream.sh` script refresh `skills/fireworks-tech-graph/` from the
+upstream `main` branch automatically.
+
+Attribution summary:
+  - Upstream:   MIT, Copyright (c) 2025 fireworks-tech-graph contributors
+  - Adapter:    MIT, Copyright (c) 2026 fireworks-tech-graph-dsh authors

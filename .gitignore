@@ -1,0 +1,21 @@
+# Dependencies (this source plugin needs none installed to run; listed for safety)
+node_modules/
+
+# OS / editor cruft
+.DS_Store
+.AppleDouble
+*.swp
+*~
+.idea/
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local environment / secrets
+.env
+.env.local
+*.local
+
+# NOTE: skills/ is VENDORED SOURCE we intentionally track — do NOT ignore it.

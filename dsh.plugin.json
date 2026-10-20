@@ -1,0 +1,15 @@
+{
+  "id": "fireworks-tech-graph-dsh",
+  "version": "1.2.0",
+  "main": "./lib/index.js",
+  "description": "Fireworks Tech Graph skill for DeepSeek Harness — technical diagrams, SVG/PNG/HTML and GIF motion.",
+  "engines": {
+    "dsh": ">=0.1.0-rc.6"
+  },
+  "contributes": {
+    "tools": [],
+    "skills": [
+      "fireworks-tech-graph"
+    ]
+  }
+}

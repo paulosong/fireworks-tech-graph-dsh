@@ -1,7 +1,7 @@
 {
   "name": "fireworks-tech-graph-dsh",
   "description": "Fireworks Tech Graph as a DeepSeek Harness skill — geometry-safe technical diagrams, SVG/PNG/HTML output and SVG-to-GIF motion. Wraps https://github.com/yizhiyanhua-ai/fireworks-tech-graph (MIT).",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": false,
   "scripts": {
     "sync": "./sync_upstream.sh"

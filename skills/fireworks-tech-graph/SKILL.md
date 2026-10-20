@@ -4,12 +4,6 @@ description: >-
   Create precise SVG technical diagrams, export PNG or offline HTML, and animate
   supported semantic SVGs to GIF. Use for architecture, UML, agent, cloud or
   workflow diagrams; not photos, raster art or statistical charts.
-whenToUse: >-
-  The user wants a technical diagram (architecture, UML, sequence, ER, state
-  machine, flowchart, timeline, C4, cloud, event, observability, agent, or
-  workflow diagram), or wants an existing SVG animated to GIF / exported to
-  PNG or offline HTML.
-
 ---
 
 # Fireworks Tech Graph
@@ -18,33 +12,34 @@ One portable Agent Skill for Codex and Claude Code. SVG is the canonical artifac
 PNG, offline HTML and supported GIF motion are output routes. Preserve requested
 labels, topology and meaning; a successful command is not a visual quality verdict.
 
-## Locate and select (DSH)
+## Locate and select
 
-DSH exposes this skill's directory through its skill resource base. Resolve the
-directory that contains this `SKILL.md` as `SKILL_ROOT`. Concretely, when DSH
-surfaces a referenced file (for example `references/style-diagram-matrix.md`),
-use the absolute directory that file resolves to.
+Resolve the directory containing this file as `SKILL_ROOT`. Use
+`${CLAUDE_SKILL_DIR}` in Claude Code or the absolute directory in Codex's loaded
+skill metadata. Do not assume cwd or a previous shell variable persists.
 
-If the resource base path is not visible to you, fall back to the bundled path
-where this plugin is installed:
-
-```bash
-SKILL_ROOT="$HOME/.dsh/profiles/desktop/node_modules/fireworks-tech-graph-dsh/skills/fireworks-tech-graph"
-```
-
-Use the installed version for the task. Run `version` for source/version
-questions and `doctor` when diagnosing a missing renderer, font or dependency;
-do not make installation, updates or a complete test suite prerequisites for
-every diagram.
+Use the installed version for the task. Run `version` for source/version questions
+and `doctor` when diagnosing a missing renderer, font or dependency; do not make
+installation, updates or a complete test suite prerequisites for every diagram.
 
 ```bash
+SKILL_ROOT="${CLAUDE_SKILL_DIR:-/absolute/path/from-codex-skill-metadata}"
 python3 "$SKILL_ROOT/scripts/fireworks.py" version
-python3 "$SKILL_ROOT/scripts/fireworks.py" doctor
 ```
 
-Prerequisites on this machine (verified): Python 3.9+ and `rsvg-convert`
-(or `cairosvg`) for PNG export. GIF motion additionally needs Node.js 22.12+
-with `puppeteer-core` (optional, not required for SVG/PNG/HTML).
+- Honor the user's diagram type, content and style; choose sensible reversible
+  details from the brief. Ask only for a material missing engineering fact or
+  a choice the user explicitly reserved. A request to draw includes local rendering.
+- Styles 1–7 and 9–12 have JSON generators. Style 8 (Dark Luxury) remains
+  AI-authored SVG: use its style reference, then the same validation/export gates.
+- Default to Style 1 Flat Icon when no user/workspace preference applies. Load the
+  actual matching file from [the style matrix](references/style-diagram-matrix.md).
+  Read other styles only for a requested comparison.
+- Styles 9–12 default to C4, cloud, event and observability semantic contracts.
+  Validate facts before layout; do not invent responsibilities, protocols or metrics.
+- Adapt an existing valid SVG directly when appropriate. JSON generation is not
+  required for every edit. Use [diagram/layout guidance](references/diagram-layout-reference.md)
+  and [icons](references/icons.md) only for the relevant type or symbols.
 
 ## Generate and check
 
@@ -55,7 +50,7 @@ any visible truncation. Resolve that warning before claiming complete exact text
 For polished work apply the [composition contract](references/composition-quality-contract.md).
 
 ```bash
-SKILL_ROOT="$HOME/.dsh/profiles/desktop/node_modules/fireworks-tech-graph-dsh/skills/fireworks-tech-graph"
+SKILL_ROOT="${CLAUDE_SKILL_DIR:-/absolute/path/from-codex-skill-metadata}"
 python3 "$SKILL_ROOT/scripts/fireworks.py" validate architecture input.json
 python3 "$SKILL_ROOT/scripts/fireworks.py" render architecture input.json diagram.svg --report layout.json
 python3 "$SKILL_ROOT/scripts/fireworks.py" check diagram.svg
